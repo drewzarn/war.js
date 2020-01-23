@@ -1,0 +1,26 @@
+:host div {
+    display: inline-block;
+    text-align: center;
+    border: solid 1px;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: .25rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+div.Clubs, div.Spades {
+    color: black;
+    border-color: black;
+}
+
+div.Hearts, div.Diamonds {
+    color: red;
+    border-color: red;
+}
+
+img {
+    height: 3rem;
+    width: 3rem;
+    vertical-align: middle;
+}
