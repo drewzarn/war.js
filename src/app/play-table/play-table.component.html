@@ -1,3 +1,7 @@
-<ng-container *ngFor="let card of cards">
-    <app-card [card]="card"></app-card>
+<app-game-control></app-game-control>
+
+<ng-container *ngFor="let player of gameService.Players">
+    <app-player [player]="player"></app-player>
 </ng-container>
+
+<app-battlefield></app-battlefield>

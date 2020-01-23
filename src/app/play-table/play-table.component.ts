@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Card } from '../_classes/card';
+import { GameService } from '../_services/game.service';
 
 @Component({
   selector: 'app-play-table',
@@ -7,17 +8,9 @@ import { Card } from '../_classes/card';
   styleUrls: ['./play-table.component.scss']
 })
 export class PlayTableComponent implements OnInit {
-  cards: Card[];
-
-  constructor() { }
+  constructor(public gameService: GameService) { }
 
   ngOnInit() {
-    this.cards = [];
-    for(let s=0; s<4; s++) {
-      for(let i=2; i<15; i++) {
-        this.cards.push(new Card(s, i));
-      }
-    }
   }
 
 }
