@@ -15,6 +15,8 @@ export class GameControlComponent implements OnInit {
    }
 
   ngOnInit() {
+
+    console.log(this.gameService.GameStates);
   }
 
   StartGame() {

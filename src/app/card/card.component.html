@@ -1,4 +1,8 @@
-<div class="{{card.Suit}}">
+<div *ngIf="card; else emptyCard" class="{{card.Suit}}">
     <span>{{card.DisplayNumber}}</span><br />
     <img src="assets/{{card.Suit}}.svg" />
 </div>
+
+<ng-template #emptyCard>
+    <div><span>-</span><img /></div>
+</ng-template>

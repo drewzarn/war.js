@@ -1,0 +1,26 @@
+h1 {
+    border-bottom: solid 1px red
+}
+
+div.player {
+    margin: .25rem;
+    width: calc(25% - .5rem);
+    float: left;
+}
+div.player h6 {
+    font-weight: normal;
+    font-size: .7rem;
+    overflow: hidden;
+    text-align: center;
+}
+div.player app-card {
+    display: block;
+    margin: auto;
+}
+
+div.war div.player {
+    opacity: .2;
+}
+div.war div.player.warmonger {
+    opacity: 1;
+}

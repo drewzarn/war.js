@@ -1,7 +1,9 @@
 <app-game-control></app-game-control>
 
-<ng-container *ngFor="let player of gameService.Players">
+<div class="float-left">
+  <ng-container *ngFor="let player of gameService.Players">
     <app-player [player]="player"></app-player>
-</ng-container>
+  </ng-container>
+</div>
 
-<app-battlefield></app-battlefield>
+<app-battlefield class="d-block float-right mr-3"></app-battlefield>

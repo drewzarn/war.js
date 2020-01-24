@@ -1,3 +1,6 @@
 Players: <input type="number" [formControl]="gamePlayers" class="px-1" />
 Delay: <input type="number" [formControl]="gameDelay" class="px-1" />
-<input type="button" value="Start Game" (click)="StartGame()" />
+<input type="button" value="{{gameService.GameState == gameService.GameStates.Stopped ? 'Start' : 'Restart'}} Game" (click)="StartGame()" />
+::
+<input type="button" value="Lay Down Cards" (click)="gameService.LayCards()" *ngIf="gameService.GameState == gameService.GameStates.EmptyTable" />
+<input type="button" value="Gather Cards" (click)="gameService.GatherCards()" *ngIf="gameService.GameState == gameService.GameStates.CardsInPlay" />
