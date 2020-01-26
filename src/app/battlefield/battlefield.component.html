@@ -1,6 +1,15 @@
 <div class="d-inline-block border border-danger rounded m-2 px-4 pb-3 w-100 h-100 {{gameService.GameState == gameService.GameStates.AtWar ? 'war' : ''}}">
-    <h1>Battlefield</h1>
-    <ng-container *ngFor="let player of gameService.Players">
+    <h1>Battlefield<span class="ml-2">({{gameService.HeldCardCount}} / {{gameService.PlayedCardCount}} / {{gameService.WarChestCount}})</span></h1>
+    <ng-container *ngFor="let player of gameService.Players | warmonger:true">
+        <div class="player {{player.WarMonger ? 'warmonger' : ''}} border border-secondary">
+            <h6>{{player.Name}}</h6>
+            <ng-container *ngFor="let card of player.WarChest">
+                <app-card [card]="card" class="warchest"></app-card>    
+            </ng-container>
+            <app-card [card]="player.PlayedCard"></app-card>
+        </div>
+    </ng-container>
+    <ng-container *ngFor="let player of gameService.Players | warmonger:false">
         <div class="player {{player.WarMonger ? 'warmonger' : ''}}">
             <h6>{{player.Name}}</h6>
             <app-card [card]="player.PlayedCard"></app-card>

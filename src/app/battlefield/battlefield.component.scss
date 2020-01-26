@@ -2,6 +2,10 @@ h1 {
     border-bottom: solid 1px red
 }
 
+h1 span {
+    font-size: 1rem;
+}
+
 div.player {
     margin: .25rem;
     width: calc(25% - .5rem);
@@ -23,4 +27,8 @@ div.war div.player {
 }
 div.war div.player.warmonger {
     opacity: 1;
+}
+
+app-card.warchest {
+    opacity: .4;
 }

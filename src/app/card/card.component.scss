@@ -1,12 +1,13 @@
 :host div {
-    display: block;
+    display: inline-block;
     text-align: center;
-    border: solid 1px;
+    border: solid 1px black;
     border-radius: 1rem;
     padding: 0 .3rem .2rem .3rem;
     margin: .25rem;
     font-size: 2rem;
     font-weight: bold;
+    color: white;
 }
 
 div.Clubs, div.Spades {

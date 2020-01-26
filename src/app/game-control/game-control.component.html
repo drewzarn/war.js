@@ -1,6 +1,26 @@
-Players: <input type="number" [formControl]="gamePlayers" class="px-1" />
-Delay: <input type="number" [formControl]="gameDelay" class="px-1" />
-<input type="button" value="{{gameService.GameState == gameService.GameStates.Stopped ? 'Start' : 'Restart'}} Game" (click)="StartGame()" />
-::
-<input type="button" value="Lay Down Cards" (click)="gameService.LayCards()" *ngIf="gameService.GameState == gameService.GameStates.EmptyTable" />
-<input type="button" value="Gather Cards" (click)="gameService.GatherCards()" *ngIf="gameService.GameState == gameService.GameStates.CardsInPlay" />
+<label class="px-1">Auto-play <input type="checkbox" [formControl]="autoPlay" (change)="UpdateTicker();"/></label>
+<ng-container *ngIf="gameService.GameState == gameService.GameStates.Stopped">
+  Delay: <input type="number" [formControl]="gameDelay" class="px-1" />
+</ng-container>
+
+<ng-container *ngIf="gameService.GameState == gameService.GameStates.Stopped">
+  Players: <input type="number" [formControl]="gamePlayers" class="px-1" />
+  War Cards: <input type="number" [formControl]="warCards" class="px-1" />
+  End with
+  <label class="px-1"><input type="radio" name="gameEndsWith" [formControl]="gameEndsWith" value="winner" /> One
+    Winner</label>
+  <label class="px-1"><input type="radio" name="gameEndsWith" [formControl]="gameEndsWith" value="loser" /> One
+    Loser</label>
+  <input type="button" value="Start Game" (click)="StartGame()" />
+</ng-container>
+
+<ng-container *ngIf="gameService.GameState != gameService.GameStates.Stopped">
+  <input type="button" value="Stop Game" (click)="StopGame()" />
+  <ng-container *ngIf="!autoPlay.value">
+    ::
+    <input type="button" value="Lay Down Cards" (click)="gameService.LayCards()"
+      *ngIf="gameService.GameState == gameService.GameStates.EmptyTable || gameService.GameState == gameService.GameStates.AtWar" />
+    <input type="button" value="Gather Cards" (click)="gameService.GatherCards()"
+      *ngIf="gameService.GameState == gameService.GameStates.CardsInPlay" />
+  </ng-container>
+</ng-container>
