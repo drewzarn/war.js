@@ -14,7 +14,7 @@ export class GameControlComponent implements OnInit {
   warCards = new FormControl(2);
   gameEndsWith = new FormControl('winner');
   autoPlay = new FormControl(true);
-  gameDelay = new FormControl(250);
+  gameDelay = new FormControl(25);
   ticker: Observable<number>;
 
   constructor(public gameService: GameService) {
@@ -26,12 +26,16 @@ export class GameControlComponent implements OnInit {
   UpdateTicker() {
     this.ticker = interval(this.gameDelay.value).pipe(takeWhile(() => this.autoPlay.value));
     this.ticker.subscribe(() => {
+      if (this.gameService.HeldCardCount + this.gameService.PlayedCardCount + this.gameService.WarChestCount > 52) {
+        this.autoPlay.setValue(false);
+        debugger;
+      }
       switch (this.gameService.GameState) {
         case this.gameService.GameStates.EmptyTable:
           this.gameService.LayCards();
           break;
         case this.gameService.GameStates.AtWar:
-          this.gameService.LayCards();
+            this.gameService.LayCards();
           break;
         case this.gameService.GameStates.CardsInPlay:
           this.gameService.GatherCards();

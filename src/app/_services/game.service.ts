@@ -91,7 +91,7 @@ export class GameService {
 
   public LayCards() {
     if (this.gameState == this.GameStates.EmptyTable) {
-      this.players.forEach(player => {
+      this.players.filter(player => !player.Lost).forEach(player => {
         player.LastWinner = false;
         player.PlayCard();
       });

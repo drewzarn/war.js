@@ -23,7 +23,9 @@ export class Player {
     }
 
     public AddCard(card: Card) {
-        this.cards.push(card);
+        if (card) {
+            this.cards.push(card);
+        }
     }
 
     public PlayCard() {
@@ -41,7 +43,10 @@ export class Player {
     }
 
     public AddCardToWarChest(card?: Card) {
-        this.warChest.push(card ? card : this.cards.shift());
+        let lootCard = card ? card : this.cards.shift();
+        if (lootCard) {
+            this.warChest.push(lootCard);
+        }
     }
 
     public EmptyWarChest() {
