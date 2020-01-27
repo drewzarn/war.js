@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../_classes/player';
 import { Card } from '../_classes/card';
+import { StatsService } from './stats.service';
+import { Subject } from 'rxjs';
 
 enum GameState {
   Stopped,
@@ -20,7 +22,10 @@ export class GameService {
   private gameState: GameState;
   public GameStates = GameState;
 
-  constructor() {
+  public StepComplete: Subject<null>;
+
+  constructor(private statService: StatsService) {
+    this.StepComplete = new Subject();
     this.gameState = GameState.Stopped;
     this.players = [];
   }
@@ -60,10 +65,14 @@ export class GameService {
     for (let p = 0; p < playerCount; p++) {
       this.players.push(new Player("Player " + (p + 1)));
     }
+
+    this.statService.NewGame(playerCount, warCardCount, endWithLoser);
+
     this.NewDeck();
-    this.Shuffle();
+    this.Shuffle(this.deck);
     this.Deal();
     this.gameState = GameState.EmptyTable;
+    this.StepComplete.next();
   }
 
   private NewDeck() {
@@ -75,10 +84,10 @@ export class GameService {
     }
   }
 
-  private Shuffle() {
-    for (let i = this.deck.length - 1; i > 0; i--) {
+  private Shuffle(cards: Card[]) {
+    for (let i = cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+      [cards[i], cards[j]] = [cards[j], cards[i]];
     }
   }
 
@@ -91,11 +100,13 @@ export class GameService {
 
   public LayCards() {
     if (this.gameState == this.GameStates.EmptyTable) {
+      this.statService.TrackDeal();
       this.players.filter(player => !player.Lost).forEach(player => {
         player.LastWinner = false;
         player.PlayCard();
       });
     } else if (this.gameState == this.GameStates.AtWar) {
+      this.statService.TrackWarDeal();
       let warMongers = this.players.filter(player => player.WarMonger);
       warMongers.forEach(player => {
         player.AddCardToWarChest(player.TakeCard());
@@ -106,6 +117,7 @@ export class GameService {
       });
     }
     this.CheckForWar();
+    this.StepComplete.next();
   }
 
   private CheckForWar() {
@@ -117,6 +129,7 @@ export class GameService {
     if (playedCardValues.get(Math.max.apply(null, [...playedCardValues.keys()])) == 1) {
       this.gameState = GameState.CardsInPlay;
     } else {
+      this.statService.TrackWar();
       this.gameState = GameState.AtWar;
       let winValue = Math.max.apply(null, [...playedCardValues.keys()]);
       let warMongers = this.players.filter(player => player.PlayedCard).filter(player => player.PlayedCard.Value == winValue);
@@ -139,6 +152,7 @@ export class GameService {
     this.players.filter(player => player.PlayedCard).forEach(player => {
       cardsInPlay.push(player.TakeCard());
     });
+    this.Shuffle(cardsInPlay);
     cardsInPlay.forEach(card => winner.AddCard(card));
     this.players.forEach(player => {
       player.EmptyWarChest().forEach(card => winner.AddCard(card));
@@ -154,6 +168,7 @@ export class GameService {
     } else {
       this.gameState = GameState.EmptyTable;
     }
+    this.StepComplete.next();
   }
 
   public get Players(): Player[] {

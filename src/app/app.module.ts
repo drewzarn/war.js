@@ -10,6 +10,7 @@ import { GameControlComponent } from './game-control/game-control.component';
 import { PlayerComponent } from './player/player.component';
 import { BattlefieldComponent } from './battlefield/battlefield.component';
 import { WarmongerPipe } from './_pipes/warmonger.pipe';
+import { StatsDisplayComponent } from './stats-display/stats-display.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { WarmongerPipe } from './_pipes/warmonger.pipe';
     GameControlComponent,
     PlayerComponent,
     BattlefieldComponent,
-    WarmongerPipe
+    WarmongerPipe,
+    StatsDisplayComponent
   ],
   imports: [
     BrowserModule,

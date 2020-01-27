@@ -1,4 +1,4 @@
-<label class="px-1">Auto-play <input type="checkbox" [formControl]="autoPlay" (change)="UpdateTicker();"/></label>
+<label class="px-1">Auto-play <input type="checkbox" [formControl]="autoPlay" (change)="NextStep();"/></label>
 <ng-container *ngIf="gameService.GameState == gameService.GameStates.Stopped">
   Delay: <input type="number" [formControl]="gameDelay" class="px-1" />
 </ng-container>
