@@ -66,9 +66,9 @@ export class CardCountChartComponent implements OnInit {
 
     let playerIds = [...data.keys()];
     data.forEach((player, playerId) => {
-      let line = d3.line()
+      let line = <any>d3.line()
         .x(function (d, i) { return x(i + 1); })
-        .y(function (d, i) { return y(d); });
+        .y(function (d:any) { return y(d); });
       console.log(playerIds, playerId, this.colors[playerIds.indexOf(playerId)]);
       svg.append("path")
         .datum([...player.Counts])
