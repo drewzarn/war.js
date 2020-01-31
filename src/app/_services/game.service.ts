@@ -66,7 +66,7 @@ export class GameService {
       this.players.push(new Player("Player " + (p + 1)));
     }
 
-    this.statService.NewGame(playerCount, warCardCount, endWithLoser);
+    this.statService.NewGame(this.players, warCardCount, endWithLoser);
 
     this.NewDeck();
     this.Shuffle(this.deck);
@@ -168,6 +168,7 @@ export class GameService {
     } else {
       this.gameState = GameState.EmptyTable;
     }
+    this.statService.CountCards(this.players);
     this.StepComplete.next();
   }
 

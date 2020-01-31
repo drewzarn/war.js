@@ -1,0 +1,11 @@
+:host {
+    display: block;
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+    right: .5rem;
+}
+
+:host div#chart {
+    height: 10rem;
+}

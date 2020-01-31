@@ -11,6 +11,7 @@ import { PlayerComponent } from './player/player.component';
 import { BattlefieldComponent } from './battlefield/battlefield.component';
 import { WarmongerPipe } from './_pipes/warmonger.pipe';
 import { StatsDisplayComponent } from './stats-display/stats-display.component';
+import { CardCountChartComponent } from './card-count-chart/card-count-chart.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { StatsDisplayComponent } from './stats-display/stats-display.component';
     PlayerComponent,
     BattlefieldComponent,
     WarmongerPipe,
-    StatsDisplayComponent
+    StatsDisplayComponent,
+    CardCountChartComponent
   ],
   imports: [
     BrowserModule,

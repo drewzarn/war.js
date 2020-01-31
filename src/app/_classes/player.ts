@@ -22,6 +22,10 @@ export class Player {
         return this.name;
     }
 
+    public get ID(): string {
+        return this.name.toLowerCase().replace(/\W+/g, '');
+    }
+
     public AddCard(card: Card) {
         if (card) {
             this.cards.push(card);
