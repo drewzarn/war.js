@@ -20,6 +20,9 @@ export class StatsService {
 
   constructor() { 
     this.PlayerStats = new ReplaySubject<Map<string, PlayerCountStats>>(1);
+    this.dealCount = 0;
+    this.warDealCount = 0;
+    this.warCount = 0;
   }
 
   public NewGame(players: Player[], warCards: number, endsWithLoser: boolean) {
