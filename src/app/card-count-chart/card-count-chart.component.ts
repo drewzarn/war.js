@@ -17,7 +17,6 @@ export class CardCountChartComponent implements OnInit {
 
   constructor(public statService: StatsService) {
     this.statService.PlayerStats.subscribe(stats => {
-      console.log(stats);
       let chartMap = new Map<Number, object>();
       stats.forEach((playerCounts: PlayerCountStats, player: string) => {
         playerCounts.Counts.forEach((count, i) => {
@@ -69,7 +68,6 @@ export class CardCountChartComponent implements OnInit {
       let line = <any>d3.line()
         .x(function (d, i) { return x(i + 1); })
         .y(function (d:any) { return y(d); });
-      console.log(playerIds, playerId, this.colors[playerIds.indexOf(playerId)]);
       svg.append("path")
         .datum([...player.Counts])
         .attr("fill", "none")
@@ -87,14 +85,6 @@ export class CardCountChartComponent implements OnInit {
             return 'd-none';
         }
         return '';
-        console.log(width, tickCount);
-        //d for the tick line is the value
-        //of that tick 
-        //(a number between 0 and 1, in this case)
-        if ((10 * d) % 2) //if it's an even multiple of 10%
-          return 10;
-        else
-          return 4;
       });
 
   }
